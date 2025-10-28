@@ -19,7 +19,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'git --version'
-                sh '.mvnw --version'
+                sh 'mvn --version'
                 sh 'mvn clean test' // Example for a Maven project
             }
         }
