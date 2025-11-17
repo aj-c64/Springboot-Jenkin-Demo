@@ -46,7 +46,7 @@ pipeline {
                     sh """
                         curl -u $NEXUS_USER:$NEXUS_PASS \
                             --upload-file target/docker-demo-0.0.1-SNAPSHOT.jar \
-                            http://localhost:8081/repository/maven-snapshots/
+                            http://nexus:8081/repository/maven-snapshots/
                     """
                 }
             }
