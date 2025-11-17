@@ -35,6 +35,22 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
+
+        stage('Push to Nexus') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'nexus-creds',
+                    usernameVariable: 'NEXUS_USER',
+                    passwordVariable: 'NEXUS_PASS'
+                )]) {
+                    sh """
+                        curl -u $NEXUS_USER:$NEXUS_PASS \
+                            --upload-file target/myapp-0.0.1-SNAPSHOT.jar \
+                            http://localhost:8081/repository/maven-snapshots/
+                    """
+                }
+            }
+        }
     }
 
     post {
